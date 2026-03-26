@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Добавить новое мероприятие</div>
+            <div class="card-body">
+                <form action="/add" method="POST">
+                    <div class="mb-3">
+                        <label>Название</label>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Дата и время</label>
+                        <input type="datetime-local" name="date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Описание</label>
+                        <textarea name="description" class="form-control" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Список мероприятий</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for event in events %}
+                    <li class="list-group-item {% if event['status'] == 1 %}list-group-item-success{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ event['title'] }}</strong><br>
+                                <small>{{ event['date'] }}</small><br>
+                                <small class="text-muted">{{ event['description'] }}</small>
+                            </div>
+                            <div>
+                                <a href="/done/{{ event['id'] }}" class="btn btn-sm btn-outline-success">✓</a>
+                                <a href="/edit/{{ event['id'] }}" class="btn btn-sm btn-outline-primary">✎</a>
+                                <a href="/delete/{{ event['id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Удалить?')">✗</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item">Нет запланированных мероприятий</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

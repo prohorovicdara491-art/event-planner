@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Редактирование мероприятия</div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Название</label>
+                        <input type="text" name="title" class="form-control" value="{{ event['title'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Дата и время</label>
+                        <input type="datetime-local" name="date" class="form-control" value="{{ event['date'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Описание</label>
+                        <textarea name="description" class="form-control" rows="3">{{ event['description'] }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a href="/" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
